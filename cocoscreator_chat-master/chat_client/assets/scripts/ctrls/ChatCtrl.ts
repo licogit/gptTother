@@ -54,7 +54,7 @@ export default class ChatCtrl extends cc.Component {
         NetUtil.Instance.on('toAll',(msg:Message)=>{
             console.log("toall");
             let node = cc.instantiate(this.otherMsgItem);
-            node.getChildByName('name').getComponent(cc.Label).string = msg.from.name;
+            node.getChildByName('name').getComponent(cc.Label).string = msg.sendName;
             node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = msg.msg;
             this.msgContent.addChild(node);
             if(this.msgContent.height>480){
@@ -65,7 +65,7 @@ export default class ChatCtrl extends cc.Component {
         NetUtil.Instance.on('toOne',(msg:Message)=>{
             console.log("toone");
             let node = cc.instantiate(this.otherMsgItem);
-            node.getChildByName('name').getComponent(cc.Label).string = msg.from.name;
+            node.getChildByName('name').getComponent(cc.Label).string = msg.sendName;
             node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = msg.msg;
             node.getChildByName('msgBox').getChildByName('msg').color = cc.Color.RED;
             this.msgContent.addChild(node);
@@ -78,7 +78,7 @@ export default class ChatCtrl extends cc.Component {
         NetUtil.Instance.on('aiMes',(msg:Message)=>{
             console.log("aiMes");
             let node = cc.instantiate(this.otherMsgItem);
-            node.getChildByName('name').getComponent(cc.Label).string = msg.from.name;
+            node.getChildByName('name').getComponent(cc.Label).string = msg.sendName;
             node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = msg.msg;
             node.getChildByName('msgBox').getChildByName('msg').color = cc.Color.RED;
             this.msgContent.addChild(node);
@@ -113,7 +113,10 @@ export default class ChatCtrl extends cc.Component {
         node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = str;
         this.msgContent.addChild(node);
         
-        let msg:Message ={from:GameUtil.Instance.userInfo,msg:str}; 
+        let msg:Message ={sendName:GameUtil.Instance.userInfo.name,
+            msg:str,
+            sendId:GameUtil.Instance.userInfo.id,
+            channel:GameUtil.Instance.userInfo.channel}; 
         console.log("sendtoall");
         NetUtil.Instance.emit('toAll',msg);
         if(this.msgContent.height>480){

@@ -1,0 +1,8 @@
+https://github.com/allknowboy/cocoscreator_chat?tab=readme-ov-file
+
+
+启动服务器
+npm install express --save
+npm install socket.io --save
+npm install underscore --save
+node app
