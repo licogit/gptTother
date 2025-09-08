@@ -5,6 +5,7 @@ const dbClient = require('../DbClient');
 let Message = dbClient.define('tb_messages', {
     uid:{type: Sequelize.INTEGER,  autoIncrement: true, primaryKey: true},
     fromuid:{type: Sequelize.INTEGER , allowNull:true},
+    sendname:{type:Sequelize.STRING , },
     message:{type:Sequelize.STRING(1024) , allowNull:false},
     channel:{type:Sequelize.STRING , },
     touid:{type:Sequelize.STRING , defaultValue:""}

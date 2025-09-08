@@ -7,7 +7,7 @@ const _ = require('underscore');
 const User = require('./models/User');
 const Message = require('./models/Message');
 
-import { v4 as uuidv4 } from 'uuid';
+const crypto = require('crypto');
 
 //设置跨域访问
 app.all('*', function(req, res, next) {
@@ -27,6 +27,14 @@ app.get('/',(req,res)=>{
 http.listen(3000, ()=>{
     console.log('listening on *:3000');
 });
+
+
+function generateRandomString(length = 16) {
+    return crypto.randomBytes(Math.ceil(length / 2))
+        .toString('hex')
+        .slice(0, length);
+}
+
 
 
 /**********************关于聊天的相关操作*************************/
@@ -66,7 +74,11 @@ sio.on('connection',socket=>{
         console.log('login');
         console.log(user);
 
-        User.findOrCreate({where: {account: user.name,password:user.password}}).then(user=>{
+// var channel = uuidv4(); 
+// console.log('uuid='+channel);
+        console.log('16位随机字符串:', generateRandomString(16));
+
+        User.findOrCreate({where: {account: user.name,password:user.password}}).spread((user, created) =>{
             console.log(user);
             if(user){
                 socket.uid = user.get('uid');
@@ -100,7 +112,7 @@ sio.on('connection',socket=>{
         User.findOrCreate({where: {account: user.name,password:user.password}}).then(user=>{
             console.log(user);
             if(user){
-                socket.uid = user.get('uid');
+                // socket.uid = user.get('uid');
             }
             else{
                 //发送当前用户列表信息
@@ -119,7 +131,7 @@ sio.on('connection',socket=>{
         //群发用户列表
         // sio.to(user.channel).emit('userList',userList[user.channel]);
         //发送当前用户列表信息
-        socket.emit('userInfo',user);
+        // socket.emit('userInfo',user);
         //除自己外广播用户登录信息
         // socket.broadcast.to(user.channel).emit('loginInfo',user.name+"上线了。");
     });
@@ -155,22 +167,25 @@ sio.on('connection',socket=>{
         Message.create({
             fromuid:socket.uid,
             message:msgObj.msg,
+            sendname:msgObj.sendName,
         }).then(value=>{
             console.log(`插入数据 ${value}`);
         });
 
-        console.log(`++++++++++++++${msgObj.from.channel}+++++++++++++++`);
+        console.log(`++++++++++++++${msgObj.msg}+++++++++++++++`);
 		// socket.broadcast.to(msgObj.from.channel).emit('toAll',msgObj);
 
         var aiMes = {
 
             to:socket.uid,
-            msg:"来自 AI的回复",
+            msg:"来自 AI的回复"+generateRandomString(16),
+            sendName:"AI agent"
         }
 
     Message.create({
             fromuid:911,
             message:aiMes.msg,
+            sendname:aiMes.sendName,
         }).then(value=>{
             console.log(`插入数据 ${value}`);
         });

@@ -64,6 +64,7 @@ export default class NetUtil{
             setInterval(()=>{
                 if(this.sio){
                     if(Date.now() - this.lastRecieveTime > 10000){
+                        console.log("startHearbeat.out.close..");
                         this.close();
                     }         
                 }

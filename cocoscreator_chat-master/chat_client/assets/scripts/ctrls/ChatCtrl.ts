@@ -28,6 +28,8 @@ export default class ChatCtrl extends cc.Component {
 
     singleUser:User = null;
 
+    deviceId:string = null;
+
 
     onLoad () {
         //注册用户登入登出信息
@@ -39,7 +41,7 @@ export default class ChatCtrl extends cc.Component {
         NetUtil.Instance.on('userInfo',(user:User)=>{
             GameUtil.Instance.userInfo = user;
             cc.log(user);
-            this.userInfoLabel.string = `当前用户是：${user.name}  当前所处的频道是:${user.channel}`
+            this.userInfoLabel.string = `当前用户是：${user.name}`
 
         })
         //广播的用户列表信息
@@ -90,7 +92,38 @@ export default class ChatCtrl extends cc.Component {
             
         });
 
+        let deviceID = this.getDeviceID();
+
+        console.log("deviceID="+deviceID);
+        let name = deviceID;
+        let password = deviceID;
+        let user ={name,password};
+        NetUtil.Instance.emit('login',user);
+
     }
+
+    getDeviceID()
+    {
+        let storedID = cc.sys.localStorage.getItem('device_id_key');
+        storedID = null;
+        if (storedID && storedID.length > 0) {
+            // 数据有效
+            this.deviceId = storedID;
+        } else {
+            // 数据无效，生成新ID
+            this.deviceId = this.generateSimpleID();
+            cc.sys.localStorage.setItem('device_id_key', this.deviceId);
+        }
+        return this.deviceId;
+
+    }
+
+     generateSimpleID() {
+        const timestamp = new Date().getTime().toString(36);
+        const randomStr = Math.random().toString(36).substr(2, 9);
+        return timestamp + randomStr;
+    }
+
 
     addMesList(mesList:Array<Message>)
     {
