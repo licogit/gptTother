@@ -43,8 +43,16 @@ export default class LoginCtrl extends cc.Component {
         NetUtil.Instance.emit('register',user);
     }
 
+    generateSimpleID() {
+        const timestamp = new Date().getTime().toString(36);
+        const randomStr = Math.random().toString(36).substr(2, 9);
+        return timestamp + randomStr;
+    }
+    
 
     login(){
+
+        
         let name = this.userBox.string;
         if(name.length<2){
             return;

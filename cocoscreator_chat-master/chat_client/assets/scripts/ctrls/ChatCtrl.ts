@@ -74,19 +74,49 @@ export default class ChatCtrl extends cc.Component {
             }
         });
 
+        var that = this;
+
+        NetUtil.Instance.on('mesList',(msgList)=>{
+            console.log("mesList");
+            that.addMesList(msgList);
+        });
+
+
         //注册发送给一个人的消息
         NetUtil.Instance.on('aiMes',(msg:Message)=>{
             console.log("aiMes");
-            let node = cc.instantiate(this.otherMsgItem);
-            node.getChildByName('name').getComponent(cc.Label).string = msg.sendName;
-            node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = msg.msg;
-            node.getChildByName('msgBox').getChildByName('msg').color = cc.Color.RED;
+
+            that.addMes(msg.sendName,msg.msg,true);
+            
+        });
+
+    }
+
+    addMesList(mesList:Array<Message>)
+    {
+
+        mesList.forEach(mes=>{
+           
+           this.addMes(mes.sendName,mes.msg,mes.sendId != GameUtil.Instance.userInfo.id);
+        })
+
+    }
+
+    addMes(sendName:string,mesContent:string,isOther:boolean)
+    {
+
+        let node = cc.instantiate(isOther ? this.otherMsgItem : this.selfMsgItem);
+            node.getChildByName('name').getComponent(cc.Label).string = sendName;
+            node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = mesContent;
+            if(isOther)
+            {
+                node.getChildByName('msgBox').getChildByName('msg').color = cc.Color.RED;
+            }
+            
             this.msgContent.addChild(node);
             if(this.msgContent.height>480){
                 this.msgScrollView.scrollToBottom(0.3);
             }
-        });
-
     }
 
     //更新用户列表的方法
@@ -108,10 +138,8 @@ export default class ChatCtrl extends cc.Component {
             return;
         }
         this.sendAllBox.string = "";
-        let node = cc.instantiate(this.selfMsgItem);
-        node.getChildByName('name').getComponent(cc.Label).string = GameUtil.Instance.userInfo.name;
-        node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = str;
-        this.msgContent.addChild(node);
+
+        this.addMes(GameUtil.Instance.userInfo.name,str,false);
         
         let msg:Message ={sendName:GameUtil.Instance.userInfo.name,
             msg:str,
@@ -119,9 +147,7 @@ export default class ChatCtrl extends cc.Component {
             channel:GameUtil.Instance.userInfo.channel}; 
         console.log("sendtoall");
         NetUtil.Instance.emit('toAll',msg);
-        if(this.msgContent.height>480){
-            this.msgScrollView.scrollToBottom(0.3);
-        }
+        
         
     }
     //发送给一个人的方法
@@ -130,19 +156,19 @@ export default class ChatCtrl extends cc.Component {
         if(str.length<1){
             return;
         }
-        this.sendOneBox.string = "";
-        let node = cc.instantiate(this.selfMsgItem);
-        node.getChildByName('name').getComponent(cc.Label).string = GameUtil.Instance.userInfo.name;
-        node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = str;
-        this.msgContent.addChild(node);
+        // this.sendOneBox.string = "";
+        // let node = cc.instantiate(this.selfMsgItem);
+        // node.getChildByName('name').getComponent(cc.Label).string = GameUtil.Instance.userInfo.name;
+        // node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = str;
+        // this.msgContent.addChild(node);
         
-        let msg:Message ={from:GameUtil.Instance.userInfo,msg:str,to:this.singleUser.id}; 
-        console.log("sendtoone");
-        NetUtil.Instance.emit('toOne',msg)
-        if(this.msgContent.height>480){
-            this.msgScrollView.scrollToBottom(0.3);
-        }
-        this.singleBox.active = false;
+        // let msg:Message ={from:GameUtil.Instance.userInfo,msg:str,to:this.singleUser.id}; 
+        // console.log("sendtoone");
+        // NetUtil.Instance.emit('toOne',msg)
+        // if(this.msgContent.height>480){
+        //     this.msgScrollView.scrollToBottom(0.3);
+        // }
+        // this.singleBox.active = false;
     }
     //显示当然消息界面的方法
     showSingleBox(user:User){

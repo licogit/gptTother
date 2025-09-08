@@ -5,4 +5,7 @@ https://github.com/allknowboy/cocoscreator_chat?tab=readme-ov-file
 npm install express --save
 npm install socket.io --save
 npm install underscore --save
+
+npm install uuid
+
 node app
