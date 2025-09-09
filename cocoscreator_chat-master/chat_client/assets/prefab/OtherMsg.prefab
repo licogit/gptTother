@@ -31,9 +31,13 @@
       }
     ],
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 21
+      }
+    ],
     "_prefab": {
-      "__id__": 21
+      "__id__": 22
     },
     "_opacity": 255,
     "_color": {
@@ -45,12 +49,12 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 606,
-      "height": 100
+      "width": 521.6,
+      "height": 140
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 0.65,
       "y": 0.5
     },
     "_trs": {
@@ -538,7 +542,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 360,
-      "height": 146.5
+      "height": 71.5
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -602,7 +606,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 106.5
+      "height": 31.5
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -653,8 +657,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话",
-    "_N$string": "这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话这是一句话",
+    "_string": "这是一句话",
+    "_N$string": "这是一句话",
     "_fontSize": 20,
     "_lineHeight": 25,
     "_enableWrapText": true,
@@ -725,7 +729,7 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 360,
-      "height": 146.5
+      "height": 71.5
     },
     "_resize": 1,
     "_N$layoutType": 0,
@@ -756,6 +760,38 @@
     },
     "fileId": "e5XuDqCMVCEaXLJzk9U5Z6",
     "sync": false
+  },
+  {
+    "__type__": "cc.Layout",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_layoutSize": {
+      "__type__": "cc.Size",
+      "width": 521.6,
+      "height": 140
+    },
+    "_resize": 1,
+    "_N$layoutType": 0,
+    "_N$cellSize": {
+      "__type__": "cc.Size",
+      "width": 40,
+      "height": 40
+    },
+    "_N$startAxis": 0,
+    "_N$paddingLeft": 30,
+    "_N$paddingRight": 30,
+    "_N$paddingTop": 20,
+    "_N$paddingBottom": 20,
+    "_N$spacingX": 0,
+    "_N$spacingY": 0,
+    "_N$verticalDirection": 1,
+    "_N$horizontalDirection": 0,
+    "_N$affectedByScale": false,
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",

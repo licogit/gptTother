@@ -9,24 +9,24 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class ChatCtrl extends cc.Component {
 
-    @property(cc.Node) userContent:cc.Node = null;
-    @property(cc.Prefab) userItem:cc.Prefab = null;
+    // @property(cc.Node) userContent:cc.Node = null;
+    // @property(cc.Prefab) userItem:cc.Prefab = null;
 
     @property(cc.Node) msgContent:cc.Node = null;
     @property(cc.Prefab) otherMsgItem:cc.Prefab = null;
     @property(cc.Prefab) selfMsgItem:cc.Prefab = null;
 
     @property(cc.EditBox) sendAllBox:cc.EditBox = null;
-    @property(cc.EditBox) sendOneBox:cc.EditBox = null;
+    // @property(cc.EditBox) sendOneBox:cc.EditBox = null;
     @property(cc.ScrollView) msgScrollView:cc.ScrollView = null;
 
     @property(cc.Node) singleBox:cc.Node = null;
 
     @property(cc.Label) userInfoLabel:cc.Label = null;
 
-    userList:Array<User> = [];
+    // userList:Array<User> = [];
 
-    singleUser:User = null;
+    // singleUser:User = null;
 
     deviceId:string = null;
 
@@ -45,13 +45,13 @@ export default class ChatCtrl extends cc.Component {
 
         })
         //广播的用户列表信息
-        NetUtil.Instance.on('userList',(userList)=>{
-            cc.find('Canvas/login_room').active = false;
-            //获取当前的用户列表
-            this.userList = userList;
-            //更新容器
-            this.updateUserList(this.userList);
-        });
+        // NetUtil.Instance.on('userList',(userList)=>{
+        //     cc.find('Canvas/login_room').active = false;
+        //     //获取当前的用户列表
+        //     this.userList = userList;
+        //     //更新容器
+        //     this.updateUserList(this.userList);
+        // });
         //注册发送给全部人的消息
         NetUtil.Instance.on('toAll',(msg:Message)=>{
             console.log("toall");
@@ -153,17 +153,17 @@ export default class ChatCtrl extends cc.Component {
     }
 
     //更新用户列表的方法
-    updateUserList(userList:Array<User>){
-        //首先清空容器
-        this.userContent.removeAllChildren();
-        userList.forEach(user=>{
-            //将用户数据加入容器
-            let node = cc.instantiate(this.userItem);
-            node.getComponent(UserNode).init(user);
-            node.getChildByName('name').getComponent(cc.Label).string = user.name; 
-            this.userContent.addChild(node);
-        })
-    }
+    // updateUserList(userList:Array<User>){
+    //     //首先清空容器
+    //     // this.userContent.removeAllChildren();
+    //     // userList.forEach(user=>{
+    //     //     //将用户数据加入容器
+    //     //     let node = cc.instantiate(this.userItem);
+    //     //     node.getComponent(UserNode).init(user);
+    //     //     node.getChildByName('name').getComponent(cc.Label).string = user.name; 
+    //     //     this.userContent.addChild(node);
+    //     // })
+    // }
     //发送给所有人的方法
     sendToAll(){
         let str = this.sendAllBox.string;
@@ -184,25 +184,25 @@ export default class ChatCtrl extends cc.Component {
         
     }
     //发送给一个人的方法
-    sendToOne(){
-        let str = this.sendOneBox.string;
-        if(str.length<1){
-            return;
-        }
-        // this.sendOneBox.string = "";
-        // let node = cc.instantiate(this.selfMsgItem);
-        // node.getChildByName('name').getComponent(cc.Label).string = GameUtil.Instance.userInfo.name;
-        // node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = str;
-        // this.msgContent.addChild(node);
+    // sendToOne(){
+    //     let str = this.sendOneBox.string;
+    //     if(str.length<1){
+    //         return;
+    //     }
+    //     // this.sendOneBox.string = "";
+    //     // let node = cc.instantiate(this.selfMsgItem);
+    //     // node.getChildByName('name').getComponent(cc.Label).string = GameUtil.Instance.userInfo.name;
+    //     // node.getChildByName('msgBox').getChildByName('msg').getComponent(cc.Label).string = str;
+    //     // this.msgContent.addChild(node);
         
-        // let msg:Message ={from:GameUtil.Instance.userInfo,msg:str,to:this.singleUser.id}; 
-        // console.log("sendtoone");
-        // NetUtil.Instance.emit('toOne',msg)
-        // if(this.msgContent.height>480){
-        //     this.msgScrollView.scrollToBottom(0.3);
-        // }
-        // this.singleBox.active = false;
-    }
+    //     // let msg:Message ={from:GameUtil.Instance.userInfo,msg:str,to:this.singleUser.id}; 
+    //     // console.log("sendtoone");
+    //     // NetUtil.Instance.emit('toOne',msg)
+    //     // if(this.msgContent.height>480){
+    //     //     this.msgScrollView.scrollToBottom(0.3);
+    //     // }
+    //     // this.singleBox.active = false;
+    // }
     //显示当然消息界面的方法
     showSingleBox(user:User){
         //缓存需要发送的人的消息
