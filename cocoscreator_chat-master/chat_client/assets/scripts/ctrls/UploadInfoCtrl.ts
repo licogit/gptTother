@@ -8,27 +8,29 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class HomeCtrl extends cc.Component {
+export default class UploadInfoCtrl extends cc.Component {
 
-    // @property(cc.Label)
-    // label: cc.Label = null;
-
-    // @property
-    // text: string = 'hello';
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {}
+   
 
     start () {
 
     }
 
-    
-
-    clickStart()
+    backAction()
     {
-        cc.director.loadScene('uploadInfo');
+        // cc.director
+        cc.director.loadScene('home');
+    }
+
+
+    zhantieAction()
+    {
+cc.director.loadScene('editInfo');
+    }
+
+    jietuAction()
+    {
+cc.director.loadScene('editInfo');
     }
 
     // update (dt) {}

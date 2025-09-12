@@ -204,10 +204,17 @@ export default class ChatCtrl extends cc.Component {
     //     // this.singleBox.active = false;
     // }
     //显示当然消息界面的方法
-    showSingleBox(user:User){
-        //缓存需要发送的人的消息
-        this.singleUser = user;
-        this.singleBox.getChildByName('board').getChildByName('to').getComponent(cc.Label).string = user.name;
-        this.singleBox.active = true;
+    // showSingleBox(user:User){
+    //     //缓存需要发送的人的消息
+    //     this.singleUser = user;
+    //     this.singleBox.getChildByName('board').getChildByName('to').getComponent(cc.Label).string = user.name;
+    //     this.singleBox.active = true;
+    // }
+
+    backAction()
+    {
+        // cc.director
+        cc.director.loadScene('home');
     }
+
 }

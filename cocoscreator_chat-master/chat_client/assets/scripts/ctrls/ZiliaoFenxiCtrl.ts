@@ -8,28 +8,19 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class HomeCtrl extends cc.Component {
+export default class ZiliaoFenxiCtrl extends cc.Component {
 
-    // @property(cc.Label)
-    // label: cc.Label = null;
+   liaotianAction()
+   {
+        cc.director.loadScene('Chat');
+   }
 
-    // @property
-    // text: string = 'hello';
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {}
-
-    start () {
-
-    }
-
-    
-
-    clickStart()
+   backAction()
     {
-        cc.director.loadScene('uploadInfo');
+        // cc.director
+        cc.director.loadScene('editInfo');
     }
 
-    // update (dt) {}
+
+
 }

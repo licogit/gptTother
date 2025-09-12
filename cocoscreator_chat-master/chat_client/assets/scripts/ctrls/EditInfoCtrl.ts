@@ -8,28 +8,22 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class HomeCtrl extends cc.Component {
-
-    // @property(cc.Label)
-    // label: cc.Label = null;
-
-    // @property
-    // text: string = 'hello';
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {}
-
-    start () {
-
-    }
+export default class EditInfoCtrl extends cc.Component {
 
     
 
-    clickStart()
+    backAction()
     {
+        // cc.director
         cc.director.loadScene('uploadInfo');
     }
 
-    // update (dt) {}
+
+    tijiaoAction()
+    {
+        cc.director.loadScene('ziliaoFenxi');
+    }
+
+
+
 }

@@ -14,7 +14,7 @@ export default class Loading extends cc.Component {
     onLoad () {
         this.initGame();
         setTimeout(()=>{
-            cc.director.loadScene('Chat');
+            cc.director.loadScene('home');
         },1000);
 
     }
